@@ -44,6 +44,17 @@
                     <input type="file" name="image" id="image" class="form-control" value="{{ old('image') }}">
                     </div>
 
+                    <label>Category</label>
+<select name="category_id" class="border p-2 w-full mb-4" required>
+    <option value="">Select Category</option>
+    @foreach($categories as $category)
+        <option value="{{ $category->id }}">
+            {{ $category->name }}
+        </option>
+    @endforeach
+</select>
+
+
 
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
                         Send

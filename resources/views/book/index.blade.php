@@ -3,10 +3,28 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Books') }}
         </h2>
+
+        {{-- Category Buttons --}}
+        <div class="mt-4 flex flex-wrap gap-2">
+            {{-- All Button --}}
+            <a href="{{ route('book.index') }}"
+               class="px-4 py-2 rounded transition
+                      {{ !request('category') ? 'bg-green-600 text-white' : 'bg-gray-500 text-white hover:bg-gray-600' }}">
+                All
+            </a>
+
+            @foreach($categories as $category)
+                <a href="{{ route('book.index', ['category' => $category->id]) }}"
+                   class="px-4 py-2 rounded transition
+                          {{ request('category') == $category->id ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700' }}">
+                    {{ $category->name }}
+                </a>
+            @endforeach
+        </div>
     </x-slot>
 
+    {{-- Books Grid --}}
     <div class="container mx-auto mt-6 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-
         @foreach($books as $book)
         <a href="{{ route('book.show', $book->id) }}" class="block group">
             <div class="bg-white dark:bg-gray-900 rounded-md shadow hover:shadow-lg transition-shadow duration-200 p-2 flex flex-col items-center text-center">
@@ -54,6 +72,5 @@
             </div>
         </a>
         @endforeach
-
     </div>
 </x-app-layout>
